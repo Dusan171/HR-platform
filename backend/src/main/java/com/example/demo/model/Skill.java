@@ -24,7 +24,7 @@ public class Skill {
     private Long id;
 
     @NotBlank(message = "Skill name is mandatory")
-    @Size(min = 2, max = 70, message = "Skill name must be between 2 and 70 characters")
+    @Size(min = 2, max = 50, message = "Skill name must be between 2 and 50 characters")
     @Column(nullable = false, unique = true)
     private String name;
 

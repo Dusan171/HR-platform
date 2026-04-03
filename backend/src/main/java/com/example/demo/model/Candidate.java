@@ -25,7 +25,7 @@ public class Candidate {
     private Long id;
 
     @NotBlank(message = "Full name is mandatory")
-    @Size(min = 2, max = 100, message = "Full name must be between 2 and 100 characters")
+    @Size(min = 2, max = 50, message = "Full name must be between 2 and 50 characters")
     @Column(name ="full_name", nullable = false)
     private String fullName;
 
@@ -34,9 +34,9 @@ public class Candidate {
     @Column(name = "date_of_birth", nullable = false)
     private LocalDate dateOfBirth;
 
-    @NotBlank(message= "Contract is mandatory")
-    @Column(name = "contract_number", unique = true, nullable = false)
-    private String contractNumber;
+    @NotBlank(message= "Contact number is mandatory")
+    @Column(name = "contact_number", unique = true, nullable = false)
+    private String contactNumber;
 
     @NotBlank(message = "Email is mandatory")
     @Email(message = "Email should be valid")
