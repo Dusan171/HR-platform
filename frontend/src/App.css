@@ -1,38 +1,85 @@
-.App {
-  text-align: center;
+/* Osnovni stilovi */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.container {
+    width: 80%;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Naslovi */
+h2 {
+    color: #333;
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* Tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+table th {
+    background-color: #333;
+    color: white;
 }
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Dugmad */
+.btn {
+    padding: 8px 15px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+
+.btn-add { background-color: #28a745; color: white; }
+.btn-delete { background-color: #dc3545; color: white; }
+.btn-cancel { background-color: #6c757d; color: white; }
+
+/* Forma */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box; /* Da padding ne raširi input */
+}
+
+.skill-badge {
+    background-color: #e2e3e5;
+    color: #383d41;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    margin-right: 5px;
+    display: inline-block;
+    border: 1px solid #d6d8db;
+}
+
+.btn-update { background-color: #ffc107; color: black; }
