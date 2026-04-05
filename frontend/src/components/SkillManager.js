@@ -13,17 +13,17 @@ const SkillManager = () => {
     };
 
     return (
-        <div className="search-container" style={{backgroundColor: '#e9ecef', marginBottom: '10px'}}>
+         <div className="skill-manager-box">
             <div className="search-group">
-                <label>Add New Global Skill:</label>
-                <div style={{display: 'flex', gap: '10px'}}>
+                <label>Add new skill to system catalog:</label>
+                <div className="input-with-button">
                     <input 
                         type="text" 
                         placeholder="e.g. Docker, AWS..." 
                         value={newSkill}
                         onChange={(e) => setNewSkill(e.target.value)}
                     />
-                    <button className="btn btn-add" onClick={handleAddSkill}>Add to System</button>
+                    <button className="btn btn-add" onClick={handleAddSkill}>Add to system</button>
                 </div>
             </div>
         </div>
