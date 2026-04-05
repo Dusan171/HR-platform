@@ -7,14 +7,12 @@ const CandidateForm = ({ candidateId, onSave, onCancel }) => {
         fullName: '', email: '', contactNumber: '', dateOfBirth: '', skills: []
     });
     
-    const [allSkills, setAllSkills] = useState([]); // Sve veštine iz baze
-    const [newSkillName, setNewSkillName] = useState(""); // Za manuelni unos
+    const [allSkills, setAllSkills] = useState([]); 
+    const [newSkillName, setNewSkillName] = useState(""); 
 
     useEffect(() => {
-        // 1. Učitaj sve veštine za padajući meni
         SkillService.getAllSkills().then(data => setAllSkills(data));
 
-        // 2. Ako je Update, učitaj podatke kandidata
         if (candidateId) {
             CandidateService.getCandidateById(candidateId).then(data => setCandidate(data));
         }
@@ -23,13 +21,11 @@ const CandidateForm = ({ candidateId, onSave, onCancel }) => {
     const handleToggleSkill = (skill) => {
         const isSelected = candidate.skills.some(s => s.name === skill.name);
         if (isSelected) {
-            // Ukloni veštinu
             setCandidate({
                 ...candidate,
                 skills: candidate.skills.filter(s => s.name !== skill.name)
             });
         } else {
-            // Dodaj veštinu
             setCandidate({
                 ...candidate,
                 skills: [...candidate.skills, { name: skill.name }]
@@ -62,7 +58,7 @@ const CandidateForm = ({ candidateId, onSave, onCancel }) => {
             <h2>{candidateId ? 'Update Candidate' : 'Add New Candidate'}</h2>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label>Full Name:</label>
+                    <label>Full name:</label>
                     <input type="text" value={candidate.fullName} onChange={(e) => setCandidate({...candidate, fullName: e.target.value})} required />
                 </div>
                 <div className="form-group">
@@ -70,31 +66,22 @@ const CandidateForm = ({ candidateId, onSave, onCancel }) => {
                     <input type="email" value={candidate.email} onChange={(e) => setCandidate({...candidate, email: e.target.value})} required />
                 </div>
                 <div className="form-group">
-                    <label>Contact Number:</label>
+                    <label>Contact number:</label>
                     <input type="text" value={candidate.contactNumber} onChange={(e) => setCandidate({...candidate, contactNumber: e.target.value})} required />
                 </div>
                 <div className="form-group">
-                    <label>Date of Birth:</label>
+                    <label>Date of birth:</label>
                     <input type="date" value={candidate.dateOfBirth} onChange={(e) => setCandidate({...candidate, dateOfBirth: e.target.value})} required />
                 </div>
 
-                {/* SKILLS SECTION */}
                 <div className="form-group">
-                    <label>Select Skills from Database:</label>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '10px', border: '1px solid #ddd', padding: '10px', borderRadius: '4px', backgroundColor: '#fcfcfc' }}>
+                    <label>Select skills from database:</label>
+                    <div className="skills-selector-container">
                         {allSkills.map(skill => (
                             <div 
                                 key={skill.id} 
                                 onClick={() => handleToggleSkill(skill)}
-                                style={{
-                                    padding: '5px 10px',
-                                    borderRadius: '15px',
-                                    cursor: 'pointer',
-                                    fontSize: '13px',
-                                    border: '1px solid #ccc',
-                                    backgroundColor: candidate.skills.some(s => s.name === skill.name) ? '#28a745' : '#fff',
-                                    color: candidate.skills.some(s => s.name === skill.name) ? '#fff' : '#000'
-                                }}
+                                className={`skill-item-clickable ${candidate.skills.some(s => s.name === skill.name) ? 'active' : ''}`}
                             >
                                 {skill.name}
                             </div>
@@ -102,8 +89,8 @@ const CandidateForm = ({ candidateId, onSave, onCancel }) => {
                         {allSkills.length === 0 && <small>No skills in database yet.</small>}
                     </div>
 
-                    <label>Or Add a New Skill:</label>
-                    <div style={{ display: 'flex', gap: '5px' }}>
+                    <label>Or add a new skill:</label>
+                    <div className="input-with-button">
                         <input 
                             type="text" 
                             placeholder="Type new skill..." 
@@ -114,20 +101,21 @@ const CandidateForm = ({ candidateId, onSave, onCancel }) => {
                     </div>
                 </div>
 
-                <div style={{ marginTop: '20px', borderTop: '1px solid #eee', paddingTop: '15px' }}>
-                    <label>Selected Skills for Candidate:</label>
-                    <div>
+                <div className="form-group">
+                    <label>Selected skills for candidate:</label>
+                    <div className="selected-skills-list">
                         {candidate.skills.map((s, index) => (
-                            <span key={index} className="skill-badge" style={{ backgroundColor: '#28a745', color: 'white' }}>
-                                {s.name} <span onClick={() => handleToggleSkill(s)} style={{ marginLeft: '5px', cursor: 'pointer', fontWeight: 'bold' }}>&times;</span>
+                            <span key={index} className="skill-badge skill-badge-selected">
+                                {s.name} 
+                                <span className="skill-remove-icon" onClick={() => handleToggleSkill(s)}>&times;</span>
                             </span>
                         ))}
                     </div>
                 </div>
 
-                <div style={{ marginTop: '30px' }}>
-                    <button type="submit" className="btn btn-add">Save Candidate</button>
+                <div className="form-footer">
                     <button type="button" className="btn btn-cancel" onClick={onCancel}>Cancel</button>
+                    <button type="submit" className="btn btn-add">Save candidate</button>
                 </div>
             </form>
         </div>

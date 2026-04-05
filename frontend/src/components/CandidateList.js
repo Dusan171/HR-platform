@@ -40,70 +40,77 @@ const CandidateList = ({ onAddClick, onEditClick }) => {
 
     return (
         <div className="container">
-            <h2>Job Candidates</h2>
+            <h2>Job candidates</h2>
 
             <div className="search-container">
                 <div className="search-group">
-                    <label>Search by Name:</label>
+                    <label>Search by Full name:</label>
                     <input 
                         type="text" 
                         placeholder="e.g. Marko" 
                         value={nameSearch}
                         onChange={(e) => setNameSearch(e.target.value)}
                     />
-                    <button className="btn btn-search" style={{marginTop: '5px'}} onClick={handleNameSearch}>Search Name</button>
+                    <button className="btn btn-search" onClick={handleNameSearch}>Search</button>
                 </div>
 
                 <div className="search-group">
-                    <label>Search by Skill:</label>
+                    <label>Search by skill:</label>
                     <input 
                         type="text" 
                         placeholder="e.g. Java" 
                         value={skillSearch}
                         onChange={(e) => setSkillSearch(e.target.value)}
                     />
-                    <button className="btn btn-search" style={{marginTop: '5px', backgroundColor: '#28a745'}} onClick={handleSkillSearch}>Search Skill</button>
+                    <button className="btn btn-add" onClick={handleSkillSearch}>Search</button>
                 </div>
 
-                <button className="btn btn-reset" onClick={loadAll}>Reset All</button>
+               <div className="search-group">
+                <div className="label-spacer"></div> 
+                   <button className="btn btn-reset btn-full-width" onClick={loadAll}>Reset All</button>
+              </div>
             </div>
 
             <button className="btn btn-add" style={{marginBottom: '20px'}} onClick={onAddClick}>
-                Add New Candidate
+                + Add new candidate
             </button>
             
-            <table>
-                <thead>
-                    <tr>
-                        <th>Full Name</th>
-                        <th>Date of Birth</th>
-                        <th>Contact info</th>
-                        <th>Skills</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {Array.isArray(candidates) &&candidates.map(c => (
-                        <tr key={c.id}>
-                            <td><strong>{c.fullName}</strong></td>
-                            <td>{c.dateOfBirth}</td>
-                            <td style={{fontSize: '13px'}}>
-                                📞 {c.contactNumber}<br/>
-                                📧 {c.email}
-                            </td>
-                            <td>
-                                {c.skills && c.skills.map(s => (
-                                    <span key={s.id} className="skill-badge">{s.name}</span>
-                                ))}
-                            </td>
-                            <td>
-                                <button className="btn btn-update" onClick={() => onEditClick(c.id)}>Update</button>
-                                <button className="btn btn-delete" onClick={() => handleDelete(c.id)}>Delete</button>
-                            </td>
+            <div className="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Full name</th>
+                            <th>Date of birth</th>
+                            <th>Contact info</th>
+                            <th>Skills</th>
+                            <th>Actions</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {Array.isArray(candidates) && candidates.map(c => (
+                            <tr key={c.id}>
+                                <td><strong>{c.fullName}</strong></td>
+                                <td>{c.dateOfBirth}</td>
+                                <td className="contact-cell">
+                                    📞 {c.contactNumber}<br/>
+                                    📧 {c.email}
+                                </td>
+                                <td>
+                                    {c.skills && c.skills.map(s => (
+                                        <span key={s.id} className="skill-badge">{s.name}</span>
+                                    ))}
+                                </td>
+                                <td>
+                                    <div style={{display: 'flex', gap: '5px'}}>
+                                        <button className="btn btn-update" onClick={() => onEditClick(c.id)}>Update</button>
+                                        <button className="btn btn-delete" onClick={() => handleDelete(c.id)}>Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };

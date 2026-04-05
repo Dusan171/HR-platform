@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import CandidateList from './components/CandidateList';
 import CandidateForm from './components/CandidateForm';
-import SkillManager from './components/SkillManager'; // Uvoziš novu komponentu
+import SkillManager from './components/SkillManager'; 
 
 function App() {
     const [view, setView] = useState('list'); // 'list', 'add', 'edit'
@@ -18,22 +18,18 @@ function App() {
     };
 
     return (
-        <div>
-            <header style={{backgroundColor: '#333', color: 'white', padding: '10px', textAlign: 'center', marginBottom: '20px'}}>
-                <h1>HR Platform - Talent Tracker</h1>
+         <div>
+            <header className="main-header">
+                <h1>HR Platform</h1>
             </header>
 
             <div className="container">
                 {view === 'list' ? (
                     <>
-                        {/* 1. Deo za upravljanje globalnim veštinama (Tačka 3 zadatka) */}
                         <SkillManager />
-                        
-                        {/* 2. Glavna tabela sa kandidatima i pretragom */}
                         <CandidateList onAddClick={showAddForm} onEditClick={showEditForm} />
                     </>
                 ) : (
-                    /* 3. Forma za Add/Update kandidata */
                     <CandidateForm 
                         candidateId={selectedCandidateId} 
                         onSave={() => setView('list')} 
