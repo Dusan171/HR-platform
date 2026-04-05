@@ -32,7 +32,6 @@ public class CandidateController {
         return candidateService.getAllCandidates();
     }
    
-    
     @PutMapping("/{id}")
     @Operation(summary = "Update candidate")
     public ResponseEntity<Candidate> updateCandidate(@PathVariable Long id, @Valid @RequestBody Candidate candidateDetails){
@@ -69,6 +68,7 @@ public class CandidateController {
     public List<Candidate>searchBySkill(@RequestParam String skill){
         return candidateService.searchBySkill(skill);
     }
+    
      @GetMapping("/{id}")
     @Operation(summary = "Get a candidate by ID")
     public ResponseEntity<Candidate> getCandidateById(@PathVariable Long id){

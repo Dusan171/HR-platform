@@ -20,7 +20,7 @@ public class SkillController {
 
     private final SkillService skillService;
 
-    @PutMapping
+    @PostMapping
     @Operation(summary = "Add new skill")
     public ResponseEntity<Skill> addSkill(@Valid @RequestBody Skill skill){
     return ResponseEntity.ok(skillService.saveSkill(skill));
