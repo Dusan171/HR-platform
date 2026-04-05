@@ -27,7 +27,15 @@ const CandidateService = {
     },
     deleteCandidate: async (id) => {
         await fetch(`${API_BASE_URL}/${id}`, { method: 'DELETE' });
-    }
+    },
+    searchByName: async (name) => {
+        const response = await fetch(`${API_BASE_URL}/search?name=${encodeURIComponent(name)}`);
+        return await response.json();
+    },
+    searchBySkill: async (skillName) => {
+    const response = await fetch(`${API_BASE_URL}/search/skill?skill=${encodeURIComponent(skillName)}`);
+    return await response.json();
+}
 };
 
 export default CandidateService;

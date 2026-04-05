@@ -31,11 +31,7 @@ public class CandidateController {
     public List<Candidate> getAllCandidates() {
         return candidateService.getAllCandidates();
     }
-    @GetMapping("/{id}")
-    @Operation(summary = "Get a candidate by ID")
-    public ResponseEntity<Candidate> getCandidateById(@PathVariable Long id){
-        return ResponseEntity.ok(candidateService.getCandidateById(id));
-    }
+   
     
     @PutMapping("/{id}")
     @Operation(summary = "Update candidate")
@@ -72,6 +68,11 @@ public class CandidateController {
     @Operation(summary= "Search by skill")
     public List<Candidate>searchBySkill(@RequestParam String skill){
         return candidateService.searchBySkill(skill);
+    }
+     @GetMapping("/{id}")
+    @Operation(summary = "Get a candidate by ID")
+    public ResponseEntity<Candidate> getCandidateById(@PathVariable Long id){
+        return ResponseEntity.ok(candidateService.getCandidateById(id));
     }
 
 }

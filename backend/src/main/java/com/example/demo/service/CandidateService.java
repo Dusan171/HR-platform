@@ -76,4 +76,22 @@ public class CandidateService {
     public List<Candidate> searchBySkill(String skillName) {
         return candidateRepository.findBySkillsNameIgnoreCase(skillName);
     }
+
+    @Transactional
+public Candidate addSkillToCandidate(Long candidateId, Long skillId) {
+    Candidate candidate = getCandidateById(candidateId);
+    Skill skill = skillRepository.findById(skillId)
+            .orElseThrow(() -> new RuntimeException("Skill not found with id: " + skillId));
+    candidate.getSkills().add(skill);
+    return candidateRepository.save(candidate);
+}
+
+@Transactional
+public void removeSkillFromCandidate(Long candidateId, Long skillId) {
+    Candidate candidate = getCandidateById(candidateId);
+    Skill skill = skillRepository.findById(skillId)
+            .orElseThrow(() -> new RuntimeException("Skill not found with id: " + skillId));
+    candidate.getSkills().remove(skill);
+    candidateRepository.save(candidate);
+}
 }

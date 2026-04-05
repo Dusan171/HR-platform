@@ -7,17 +7,15 @@ const CandidateForm = ({ candidateId, onSave, onCancel }) => {
         email: '',
         contactNumber: '',
         dateOfBirth: '',
-        skills: [] // Inicijalno prazno
+        skills: [] 
     });
-    
-    // Polje za unos veština kao tekst (npr. "Java, C#")
+ 
     const [skillsText, setSkillsText] = useState("");
 
     useEffect(() => {
         if (candidateId) {
             CandidateService.getCandidateById(candidateId).then(data => {
                 setCandidate(data);
-                // Pretvaramo niz objekata u string za input polje
                 const names = data.skills.map(s => s.name).join(", ");
                 setSkillsText(names);
             });
@@ -26,8 +24,7 @@ const CandidateForm = ({ candidateId, onSave, onCancel }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        // Pretvaramo string nazad u niz objekata za backend
+    
         const skillObjects = skillsText.split(",")
             .map(s => s.trim())
             .filter(s => s !== "")

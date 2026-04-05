@@ -4,25 +4,70 @@ import '../App.css';
 
 const CandidateList = ({ onAddClick, onEditClick }) => {
     const [candidates, setCandidates] = useState([]);
+    const [nameSearch, setNameSearch] = useState("");
+    const [skillSearch, setSkillSearch] = useState("");
 
     useEffect(() => {
-        loadCandidates();
+        loadAll();
     }, []);
 
-    const loadCandidates = () => {
-        CandidateService.getAllCandidates().then(data => setCandidates(data));
+    const loadAll = () => {
+        CandidateService.getAllCandidates().then(data => {
+            setCandidates(data);
+            setNameSearch("");
+            setSkillSearch("");
+        });
+    };
+
+    const handleNameSearch = async () => {
+        if(nameSearch.trim() === "") return;
+        const data = await CandidateService.searchByName(nameSearch);
+        setCandidates(data);
+    };
+
+    const handleSkillSearch = async () => {
+        if(skillSearch.trim() === "") return;
+        const data = await CandidateService.searchBySkill(skillSearch);
+        setCandidates(data);
     };
 
     const handleDelete = async (id) => {
-        if (window.confirm("Are you sure you want to delete this candidate?")) {
+        if (window.confirm("Are you sure?")) {
             await CandidateService.deleteCandidate(id);
-            loadCandidates();
+            loadAll();
         }
     };
 
     return (
         <div className="container">
             <h2>Job Candidates</h2>
+
+            <div className="search-container">
+                <div className="search-group">
+                    <label>Search by Name:</label>
+                    <input 
+                        type="text" 
+                        placeholder="e.g. Marko" 
+                        value={nameSearch}
+                        onChange={(e) => setNameSearch(e.target.value)}
+                    />
+                    <button className="btn btn-search" style={{marginTop: '5px'}} onClick={handleNameSearch}>Search Name</button>
+                </div>
+
+                <div className="search-group">
+                    <label>Search by Skill:</label>
+                    <input 
+                        type="text" 
+                        placeholder="e.g. Java" 
+                        value={skillSearch}
+                        onChange={(e) => setSkillSearch(e.target.value)}
+                    />
+                    <button className="btn btn-search" style={{marginTop: '5px', backgroundColor: '#28a745'}} onClick={handleSkillSearch}>Search Skill</button>
+                </div>
+
+                <button className="btn btn-reset" onClick={loadAll}>Reset All</button>
+            </div>
+
             <button className="btn btn-add" style={{marginBottom: '20px'}} onClick={onAddClick}>
                 Add New Candidate
             </button>
@@ -38,7 +83,7 @@ const CandidateList = ({ onAddClick, onEditClick }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {candidates.map(c => (
+                    {Array.isArray(candidates) &&candidates.map(c => (
                         <tr key={c.id}>
                             <td><strong>{c.fullName}</strong></td>
                             <td>{c.dateOfBirth}</td>
