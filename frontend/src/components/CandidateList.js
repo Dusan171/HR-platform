@@ -11,30 +11,46 @@ const CandidateList = ({ onAddClick, onEditClick }) => {
         loadAll();
     }, []);
 
-    const loadAll = () => {
-        CandidateService.getAllCandidates().then(data => {
+    const loadAll = async () => {
+        try{
+            const data = await CandidateService.getAllCandidates();
             setCandidates(data);
             setNameSearch("");
             setSkillSearch("");
-        });
+        } catch (err) {
+            alert("Could not load candidates: " + err.message);
+        }
     };
 
     const handleNameSearch = async () => {
         if(nameSearch.trim() === "") return;
-        const data = await CandidateService.searchByName(nameSearch);
-        setCandidates(data);
+            try{
+                const data = await CandidateService.searchByName(nameSearch);
+                setCandidates(data);
+            } catch (err){
+                alert("Search failed: " + err.message);
+            }
+        
     };
 
     const handleSkillSearch = async () => {
         if(skillSearch.trim() === "") return;
-        const data = await CandidateService.searchBySkill(skillSearch);
-        setCandidates(data);
+            try{
+                const data = await CandidateService.searchBySkill(skillSearch);
+                setCandidates(data);
+            } catch (err) {
+                alert("Search failed: " + err.message);
+            }
     };
 
     const handleDelete = async (id) => {
-        if (window.confirm("Are you sure?")) {
-            await CandidateService.deleteCandidate(id);
-            loadAll();
+        if(window.confirm("Are you sure you want to delete this candidate?")) {
+            try {
+                await CandidateService.deleteCandidate(id);
+                loadAll();
+            } catch (err){
+                alert("Delete failed: " + err.message);
+            }
         }
     };
 

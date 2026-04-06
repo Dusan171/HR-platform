@@ -5,10 +5,14 @@ const SkillManager = () => {
     const [newSkill, setNewSkill] = useState("");
 
     const handleAddSkill = async () => {
-        if (newSkill.trim() !== "") {
-            await SkillService.createSkill(newSkill);
-            alert("Skill added to catalog!");
-            setNewSkill("");
+        if(newSkill.trim() !== ""){
+            try {
+                await SkillService.createSkill(newSkill);
+                alert("Skill added to catalog!");
+                setNewSkill("");
+            } catch (err){
+                alert("Failed to add skill: " + err.message);
+            }
         }
     };
 
