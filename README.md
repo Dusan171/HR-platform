@@ -1,5 +1,8 @@
 ## 👔 HR Platform - Candidate & Skill Management System
 A full-stack application designed to facilitate HR processes by managing job candidates and their professional skills. This project demonstrates a robust Spring Boot 3 backend integrated with a React frontend, featuring a Many-to-Many relationship with smart data persistence.
+## 🧠 Design Commentary
+The most interesting part of this project for me was architecting the database model and ensuring its consistency throughout the entire lifecycle of the platform. I believe that data integrity is the foundation of any reliable application, so I started at the lowest level by strictly defining entity constraints and relationships.
+In the Service layer, my focus shifted to making the business logic as resilient as possible. My priority was ensuring that all operations are atomic and consistent, while proactively addressing common performance pitfalls like the 'N+1 Select' problem. I enjoyed the challenge of creating an intelligent system that maintains a clean, normalized database while keeping the codebase professional and scalable. For me, every architectural decision was driven by a commitment to long-term system reliability.
 ## 🚀 Features
 Backend (Java/Spring Boot)
 * Smart Candidate Management: Full CRUD (Create, Read, Update, Delete) for job candidates.
