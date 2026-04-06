@@ -12,11 +12,11 @@ const handleResponse = async (response) => {
 const CandidateService = {
     getAllCandidates: async () => {
         const response = await fetch(API_BASE_URL);
-        return await handleResponse(response);
+        return handleResponse(response);
     },
      getCandidateById: async (id) => {
         const response = await fetch(`${API_BASE_URL}/${id}`);
-        return await handleResponse(response);
+        return handleResponse(response);
     },
     createCandidate: async (candidate) => {
         const response = await fetch(API_BASE_URL, {
@@ -24,7 +24,7 @@ const CandidateService = {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(candidate)
         });
-        return await handleResponse(response);
+        return handleResponse(response);
     },
     updateCandidate: async (id, candidate) => {
         const response = await fetch(`${API_BASE_URL}/${id}`, {
@@ -32,7 +32,7 @@ const CandidateService = {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(candidate)
         });
-        return await handleResponse(response);
+        return handleResponse(response);
     },
     deleteCandidate: async (id) => {
         const response = await fetch(`${API_BASE_URL}/${id}`, { method: 'DELETE' });
