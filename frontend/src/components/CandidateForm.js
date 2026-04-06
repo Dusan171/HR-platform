@@ -45,12 +45,18 @@ const CandidateForm = ({ candidateId, onSave, onCancel }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (candidateId) {
-            await CandidateService.updateCandidate(candidateId, candidate);
-        } else {
-            await CandidateService.createCandidate(candidate);
+        try{
+            if (candidateId) {
+                await CandidateService.updateCandidate(candidateId, candidate);
+                alert("Candidate updated successfully!");
+            } else {
+                await CandidateService.createCandidate(candidate);
+                alert("Candidate created successfully!");
+            }
+            onSave();
+        } catch (err){
+            alert("Error saving candidate: " + err.message);
         }
-        onSave();
     };
 
     return (

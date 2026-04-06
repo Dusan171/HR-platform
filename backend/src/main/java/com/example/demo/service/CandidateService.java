@@ -26,7 +26,7 @@ public class CandidateService {
     }
 
     public List<Candidate> getAllCandidates() {
-        return candidateRepository.findAll();
+        return candidateRepository.findAllWithSkills();
     }
 
     public Candidate getCandidateById(Long id) {
